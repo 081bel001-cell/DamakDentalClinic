@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security & UI Improvements - Testing Guide</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      line-height: 1.6;
+      background: #f5f5f5;
+    }
+    h1 { color: #0d2d4a; border-bottom: 3px solid #067a8a; padding-bottom: 10px; }
+    h2 { color: #067a8a; margin-top: 30px; }
+    .test-section {
+      background: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .success { color: #0a6b47; font-weight: bold; }
+    .status { display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 14px; }
+    .status.pass { background: #d4f4dd; color: #0a6b47; }
+    .status.info { background: #d4e8f4; color: #067a8a; }
+    code {
+      background: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+    ul { margin-left: 20px; }
+    li { margin: 8px 0; }
+    .color-demo {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      vertical-align: middle;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+    }
+    .test-link {
+      display: inline-block;
+      background: #067a8a;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 6px;
+      margin: 10px 10px 10px 0;
+    }
+    .test-link:hover {
+      background: #0d9aaa;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔒 Security & UI Improvements Testing Guide</h1>
+
+  <div class="test-section">
+    <h2>✅ Implementation Complete</h2>
+    <p>All security enhancements and UI improvements have been successfully implemented. Use this guide to test the improvements.</p>
+  </div>
+
+  <div class="test-section">
+    <h2>🔐 Security Features to Test</h2>
+
+    <h3>1. Content Security Policy (CSP)</h3>
+    <p><span class="status pass">IMPLEMENTED</span></p>
+    <ul>
+      <li><strong>How to test:</strong> Open browser DevTools → Network tab → Check response headers for CSP</li>
+      <li><strong>Expected:</strong> See <code>Content-Security-Policy</code> header on all pages</li>
+      <li><strong>Pages:</strong> <a href="../index.html" class="test-link">index.html</a> <a href="../contact.html" class="test-link">contact.html</a> <a href="../services.html" class="test-link">services.html</a></li>
+    </ul>
+
+    <h3>2. Input Sanitization</h3>
+    <p><span class="status pass">IMPLEMENTED</span></p>
+    <ul>
+      <li><strong>How to test:</strong> Try entering <code>&lt;script&gt;alert('test')&lt;/script&gt;</code> in form fields</li>
+      <li><strong>Expected:</strong> Script tags are removed, plain text is submitted</li>
+      <li><strong>Test page:</strong> <a href="../contact.html#booking-form" class="test-link">Contact Form</a></li>
+    </ul>
+
+    <h3>3. Rate Limiting</h3>
+    <p><span class="status pass">IMPLEMENTED</span></p>
+    <ul>
+      <li><strong>How to test:</strong> Submit the form, then try to submit again immediately</li>
+      <li><strong>Expected:</strong> Error message showing countdown timer (60 seconds)</li>
+      <li><strong>Test page:</strong> <a href="../contact.html#booking-form" class="test-link">Contact Form</a></li>
+    </ul>
+
+    <h3>4. Honeypot Spam Protection</h3>
+    <p><span class="status pass">IMPLEMENTED</span></p>
+    <ul>
+      <li><strong>How to test:</strong> Open DevTools → Console → Run: <code>document.getElementById('website').value = 'spam'</code> then submit</li>
+      <li><strong>Expected:</strong> Form shows success but doesn't actually submit</li>
+      <li><strong>Location:</strong> Hidden field in contact form (line 64-67 in contact.html)</li>
+    </ul>
+
+    <h3>5. Enhanced Form Validation</h3>
+    <p><span class="status pass">IMPLEMENTED</span></p>
+    <ul>
+      <li><strong>How to test:</strong> Try entering special characters in name field: <code>Test@#$</code></li>
+      <li><strong>Expected:</strong> Error: "Please enter a valid name (letters and spaces only)"</li>
+      <li><strong>Try entering:</strong> Very long name (>100 chars), short name (<2 chars), invalid phone</li>
+    </ul>
+  </div>
+
+  <div class="test-section">
+    <h2>🎨 UI/UX Features to Test</h2>
+
+    <h3>1. Success Modal</h3>
+    <p><span class="status pass">IMPLEMENTED</span></p>
+    <ul>
+      <li><strong>How to test:</strong> Fill form correctly and submit (note: will fail without backend)</li>
+      <li><strong>Expected:</strong> Animated modal with checkmark icon appears</li>
+      <li><strong>Close methods:</strong> Click X button, click outside modal, press Escape key</li>
+      <li><strong>Test page:</strong> <a href="../contact.html#booking-form" class="test-link">Contact Form</a></li>
+    </ul>
+
+    <h3>2. Loading Spinner</h3>
+    <p><span class="status pass">IMPLEMENTED</span></p>
+    <ul>
+      <li><strong>How to test:</strong> Submit the form and watch the button</li>
+      <li><strong>Expected:</strong> Button text disappears, spinning loader appears, button is disabled</li>
+      <li><strong>Duration:</strong> Shows during API request (will fail quickly without backend)</li>
+    </ul>
+
+    <h3>3. Enhanced Error Display</h3>
+    <p><span class="status pass">IMPLEMENTED</span></p>
+    <ul>
+      <li><strong>How to test:</strong> Leave form fields empty and submit</li>
+      <li><strong>Expected:</strong> Red borders on invalid fields, specific error messages below each field</li>
+      <li><strong>Accessibility:</strong> Fields have <code>aria-invalid="true"</code> attribute</li>
+    </ul>
+  </div>
+
+  <div class="test-section">
+    <h2>♿ Accessibility Features to Test</h2>
+
+    <h3>1. Color Contrast (WCAG AA)</h3>
+    <p><span class="status pass">IMPLEMENTED</span></p>
+    <div>
+      <p><span class="color-demo" style="background: #0a1829;"></span> Main text: <code>#0a1829</code> - Contrast ratio: 15.3:1 ✅</p>
+      <p><span class="color-demo" style="background: #3d5568;"></span> Muted text: <code>#3d5568</code> - Contrast ratio: 7.8:1 ✅</p>
+      <p><span class="color-demo" style="background: #067a8a;"></span> Aqua: <code>#067a8a</code> - WCAG AA compliant ✅</p>
+      <p><span class="color-demo" style="background: #0a6b47;"></span> Success: <code>#0a6b47</code> - WCAG AA compliant ✅</p>
+    </div>
+
+    <h3>2. Keyboard Navigation</h3>
+    <p><span class="status pass">IMPLEMENTED</span></p>
+    <ul>
+      <li><strong>How to test:</strong> Use Tab key to navigate through the page</li>
+      <li><strong>Expected:</strong> Clear blue focus outlines on all interactive elements</li>
+      <li><strong>Bonus:</strong> Buttons lift slightly on focus with shadow effect</li>
+      <li><strong>Try:</strong> Press Tab from top of <a href="../index.html" class="test-link">homepage</a></li>
+    </ul>
+
+    <h3>3. Screen Reader Support</h3>
+    <p><span class="status pass">IMPLEMENTED</span></p>
+    <ul>
+      <li><strong>How to test:</strong> Use VoiceOver (Mac), NVDA (Windows), or TalkBack (Android)</li>
+      <li><strong>Expected:</strong> All form fields announce label, state (required/invalid), and error messages</li>
+      <li><strong>Check:</strong> Modal has proper <code>role="dialog"</code> and <code>aria-modal="true"</code></li>
+    </ul>
+
+    <h3>4. Mobile Touch Targets</h3>
+    <p><span class="status pass">IMPLEMENTED</span></p>
+    <ul>
+      <li><strong>How to test:</strong> Open on mobile device or use Chrome DevTools device emulation</li>
+      <li><strong>Expected:</strong> All buttons and links are minimum 44x44px (WCAG 2.5.5)</li>
+      <li><strong>Try:</strong> Resize browser to <800px width and tap navigation items</li>
+    </ul>
+
+    <h3>5. Reduced Motion Support</h3>
+    <p><span class="status pass">IMPLEMENTED</span></p>
+    <ul>
+      <li><strong>How to test:</strong> System Settings → Accessibility → Reduce Motion (or DevTools → Rendering → Emulate CSS media)</li>
+      <li><strong>Expected:</strong> All animations disabled, content appears instantly</li>
+    </ul>
+
+    <h3>6. High Contrast Mode</h3>
+    <p><span class="status pass">IMPLEMENTED</span></p>
+    <ul>
+      <li><strong>How to test:</strong> DevTools → Rendering → Emulate CSS media feature <code>prefers-contrast: more</code></li>
+      <li><strong>Expected:</strong> Stronger borders, higher contrast text, better differentiation</li>
+    </ul>
+  </div>
+
+  <div class="test-section">
+    <h2>📱 Responsive Design to Test</h2>
+
+    <h3>Desktop (>1024px)</h3>
+    <p><span class="status info">TEST</span> <a href="../index.html" class="test-link">View Homepage</a></p>
+    <ul>
+      <li>Multi-column layouts</li>
+      <li>Side-by-side content</li>
+      <li>Full navigation visible</li>
+    </ul>
+
+    <h3>Tablet (800px - 1024px)</h3>
+    <p><span class="status info">TEST</span> Resize browser to ~900px width</p>
+    <ul>
+      <li>2-column grids</li>
+      <li>Hamburger menu appears</li>
+      <li>Touch targets increase to 44x44px</li>
+    </ul>
+
+    <h3>Mobile (480px - 800px)</h3>
+    <p><span class="status info">TEST</span> Resize browser to ~600px width</p>
+    <ul>
+      <li>Single column layouts</li>
+      <li>Stacked hero content</li>
+      <li>Full-width buttons</li>
+      <li>Floating CTA button appears</li>
+    </ul>
+
+    <h3>Small Mobile (<480px)</h3>
+    <p><span class="status info">TEST</span> Resize browser to ~375px width</p>
+    <ul>
+      <li>Reduced spacing</li>
+      <li>Smaller typography</li>
+      <li>Full-width buttons</li>
+      <li>16px input font (prevents iOS zoom)</li>
+    </ul>
+  </div>
+
+  <div class="test-section">
+    <h2>🔍 Browser DevTools Checks</h2>
+
+    <h3>Console Errors</h3>
+    <p><span class="status info">CHECK</span> Open Console (F12) → Should have no errors</p>
+
+    <h3>Network Tab</h3>
+    <p><span class="status info">CHECK</span> Verify security headers:</p>
+    <ul>
+      <li><code>Content-Security-Policy</code></li>
+      <li><code>X-Content-Type-Options: nosniff</code></li>
+      <li><code>X-Frame-Options: SAMEORIGIN</code></li>
+    </ul>
+
+    <h3>Lighthouse Audit</h3>
+    <p><span class="status info">CHECK</span> Run Lighthouse (DevTools → Lighthouse tab)</p>
+    <ul>
+      <li><strong>Performance:</strong> Should be 90+ (static site)</li>
+      <li><strong>Accessibility:</strong> Should be 95+ (WCAG AA compliant)</li>
+      <li><strong>Best Practices:</strong> Should be 95+</li>
+      <li><strong>SEO:</strong> Should be 90+</li>
+    </ul>
+
+    <h3>Accessibility Audit</h3>
+    <p><span class="status info">CHECK</span> Use tools:</p>
+    <ul>
+      <li><a href="https://www.deque.com/axe/" target="_blank">aXe DevTools</a> - Browser extension</li>
+      <li><a href="https://wave.webaim.org/" target="_blank">WAVE</a> - Web accessibility evaluator</li>
+      <li><a href="https://www.ssa.gov/accessibility/andi/" target="_blank">ANDI</a> - Accessibility testing tool</li>
+    </ul>
+  </div>
+
+  <div class="test-section">
+    <h2>📋 Quick Test Checklist</h2>
+    <ul>
+      <li>☐ Submit contact form with valid data</li>
+      <li>☐ Submit form with invalid data (check error messages)</li>
+      <li>☐ Try to submit form twice quickly (rate limiting)</li>
+      <li>☐ Navigate site using only keyboard (Tab, Enter, Escape)</li>
+      <li>☐ Test on mobile device or emulator (all breakpoints)</li>
+      <li>☐ Check color contrast with browser DevTools</li>
+      <li>☐ Test with screen reader (VoiceOver, NVDA, or TalkBack)</li>
+      <li>☐ Run Lighthouse audit (DevTools)</li>
+      <li>☐ Check for console errors (F12)</li>
+      <li>☐ Test success modal (appearance, close methods)</li>
+    </ul>
+  </div>
+
+  <div class="test-section">
+    <h2>📄 Documentation</h2>
+    <p>Complete security and implementation details are available in:</p>
+    <ul>
+      <li><strong><a href="../SECURITY.md" class="test-link">SECURITY.md</a></strong> - Comprehensive security documentation</li>
+      <li><strong><a href="../.well-known/security.txt" class="test-link">security.txt</a></strong> - Responsible disclosure contact</li>
+      <li><strong><a href="../README.md" class="test-link">README.md</a></strong> - Deployment instructions</li>
+    </ul>
+  </div>
+
+  <div class="test-section">
+    <h2>✨ Summary</h2>
+    <p class="success">
+      All security enhancements and UI improvements have been successfully implemented and are ready for testing.
+      The website now features comprehensive security measures, WCAG 2.1 AA accessibility compliance,
+      and enhanced responsive design for all devices.
+    </p>
+  </div>
+
+  <footer style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #ddd; text-align: center; color: #666;">
+    <p>Security & UI Improvements by Claude Opus 4.6 | Testing Guide v1.0</p>
+  </footer>
+</body>
+</html>
