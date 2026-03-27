@@ -1,0 +1,9 @@
+Contact: mailto:clinic@example.com
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: en, ne
+Canonical: https://example.com/.well-known/security.txt
+
+# Security Policy
+# If you discover a security vulnerability in this website,
+# please report it responsibly via email.
+# We take security seriously and will respond promptly.
