@@ -1,19 +1,19 @@
 :root {
   --navy-950: #04101c;
   --navy-900: #071e33;
-  --navy-800: #123753;
-  --aqua-600: #079eb2;
-  --aqua-500: #10b6c7;
-  --mint-400: #65e3d2;
-  --sky-400: #65a9ff;
+  --navy-800: #0d2d4a;
+  --aqua-600: #067a8a;
+  --aqua-500: #0d9aaa;
+  --mint-400: #3fcfbc;
+  --sky-400: #3d8ef0;
   --white: #ffffff;
   --surface: #f8fcff;
   --surface-strong: #ecf6ff;
-  --text: #0f2236;
-  --text-muted: #4a657f;
+  --text: #0a1829;
+  --text-muted: #3d5568;
   --border: #bfd4e8;
-  --danger: #be2d39;
-  --success: #0d8154;
+  --danger: #b82831;
+  --success: #0a6b47;
   --shadow-soft: 0 18px 38px rgba(5, 37, 61, 0.12);
   --shadow-deep: 0 28px 56px rgba(2, 24, 40, 0.22);
   --radius-lg: 22px;
@@ -1192,5 +1192,167 @@ select[aria-invalid="true"] {
 a:focus-visible {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(7, 158, 178, 0.3);
+}
+
+/* Enhanced mobile responsiveness */
+@media (max-width: 480px) {
+  :root {
+    --space-6: 40px;
+    --space-7: 48px;
+  }
+
+  .container {
+    width: min(100% - 1.5rem, var(--max-width));
+  }
+
+  h1 {
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+    line-height: 1.15;
+  }
+
+  h2 {
+    font-size: clamp(1.35rem, 6vw, 1.85rem);
+    line-height: 1.25;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 24px;
+    font-size: 1rem;
+  }
+
+  .hero-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .hero-benefits {
+    font-size: 0.9rem;
+  }
+
+  .trust-strip {
+    padding: var(--space-4);
+  }
+
+  .feature-grid,
+  .testimonial-grid {
+    gap: var(--space-3);
+  }
+
+  .card {
+    padding: var(--space-4);
+  }
+
+  .timeline li {
+    padding: var(--space-3);
+  }
+
+  .booking-grid {
+    gap: var(--space-4);
+  }
+
+  .mobile-primary-cta {
+    font-size: 0.95rem;
+    padding: 12px 20px;
+  }
+
+  .modal-content {
+    padding: var(--space-5);
+    margin: var(--space-2);
+  }
+
+  .modal-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 28px;
+  }
+}
+
+/* Improve touch targets for mobile */
+@media (max-width: 800px) {
+  .nav-toggle {
+    padding: 12px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .site-nav a {
+    padding: 12px 16px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  button,
+  .btn,
+  a.btn {
+    min-height: 44px;
+    padding: 12px 24px;
+  }
+
+  input,
+  textarea,
+  select {
+    min-height: 44px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .faq-item summary {
+    padding: var(--space-3);
+    min-height: 44px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --text: #000000;
+    --text-muted: #1a1a1a;
+    --border: #666666;
+  }
+
+  .btn-primary {
+    border: 2px solid var(--navy-900);
+  }
+
+  .btn-secondary {
+    border: 2px solid var(--navy-800);
+  }
+
+  input,
+  textarea,
+  select {
+    border: 2px solid var(--navy-800);
+  }
+}
+
+/* Print styles */
+@media print {
+  .site-header,
+  .nav-toggle,
+  .site-nav,
+  .mobile-primary-cta,
+  .modal-overlay,
+  .parallax-layer {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .section {
+    page-break-inside: avoid;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  .btn {
+    border: 2px solid black;
+  }
 }
 
