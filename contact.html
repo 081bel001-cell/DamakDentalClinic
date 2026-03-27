@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https:; frame-src https://www.google.com; base-uri 'self'; form-action 'self' https:;" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>Book Dental Cleaning | Damak Dental Clinic</title>
   <meta name="description" content="Book your dental cleaning in Damak. Send your preferred time and our clinic team will confirm your appointment quickly." />
   <meta property="og:title" content="Book Dental Cleaning in Damak" />
@@ -55,6 +59,12 @@
             <label for="phone">Phone Number *</label>
             <input id="phone" name="phone" type="tel" autocomplete="tel" required />
             <p id="phone-error" class="field-error" role="alert"></p>
+
+            <!-- Honeypot field (hidden from users, visible to bots) -->
+            <div style="position: absolute; left: -9999px;" aria-hidden="true">
+              <label for="website">Website (leave blank)</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
 
             <label for="preferredTime">Preferred Time *</label>
             <select id="preferredTime" name="preferredTime" required>
@@ -156,6 +166,17 @@
   </footer>
 
   <a class="mobile-primary-cta pulse" data-primary-cta href="contact.html#booking-form">Book My Cleaning</a>
+
+  <!-- Success Modal -->
+  <div id="success-modal" class="modal-overlay" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-icon">✓</div>
+      <h2 id="modal-title">Booking Received!</h2>
+      <p>Thank you for booking your dental cleaning. Our team will call you within 30 minutes during clinic hours to confirm your appointment.</p>
+      <a href="index.html" class="btn btn-primary">Back to Home</a>
+    </div>
+  </div>
 
   <script src="assets/js/clinic.config.js"></script>
   <script src="assets/js/main.js"></script>

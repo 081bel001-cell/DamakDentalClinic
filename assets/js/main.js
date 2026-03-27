@@ -28,7 +28,10 @@
   const setList = (selector, items) => {
     if (!Array.isArray(items)) return;
     document.querySelectorAll(selector).forEach((list) => {
-      list.innerHTML = "";
+      // Clear list safely
+      while (list.firstChild) {
+        list.removeChild(list.firstChild);
+      }
       items.forEach((entry) => {
         const li = document.createElement("li");
         li.textContent = String(entry);
@@ -40,7 +43,10 @@
   const setHours = () => {
     if (!Array.isArray(config.hours)) return;
     document.querySelectorAll("[data-hours-list]").forEach((list) => {
-      list.innerHTML = "";
+      // Clear list safely
+      while (list.firstChild) {
+        list.removeChild(list.firstChild);
+      }
       config.hours.forEach((entry) => {
         const li = document.createElement("li");
         li.textContent = `${entry.day}: ${entry.time}`;
@@ -52,7 +58,10 @@
   const hydrateTrustStats = () => {
     if (!Array.isArray(config.trustStats)) return;
     document.querySelectorAll("[data-trust-stats]").forEach((list) => {
-      list.innerHTML = "";
+      // Clear list safely
+      while (list.firstChild) {
+        list.removeChild(list.firstChild);
+      }
       config.trustStats.forEach((item) => {
         const li = document.createElement("li");
         const strong = document.createElement("strong");
@@ -68,7 +77,10 @@
   const hydrateTestimonials = () => {
     if (!Array.isArray(config.testimonials)) return;
     document.querySelectorAll("[data-testimonials]").forEach((grid) => {
-      grid.innerHTML = "";
+      // Clear grid safely
+      while (grid.firstChild) {
+        grid.removeChild(grid.firstChild);
+      }
       config.testimonials.forEach((testimonial) => {
         const card = document.createElement("article");
         card.className = "testimonial-card reveal";
